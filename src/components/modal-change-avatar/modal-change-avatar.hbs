@@ -1,0 +1,14 @@
+<div class="modal">
+  {{>component/modalOverlay}}
+  <div class="modal__content">
+    <h3 class="modal__title">{{title}}</h3>
+    <label for="uploadAvatar" class="change-avatar-label">
+      Выбрать аватар с компьютера
+    </label>
+    <input id='uploadAvatar' class="change-avatar-input" type="file" />
+    <div class="change-avatar-button">
+      {{>component/button text='Поменять' }}
+      <span class="change-avatar-error">{{error}}</span>
+    </div>
+  </div>
+</div>
