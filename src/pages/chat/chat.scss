@@ -1,4 +1,11 @@
 @import "../../styles/variables";
+.arrow-right {
+  background-image: url("../../assets/svg/arrowRight.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 4px;
+  height: 9px;
+}
 
 .chats {
   display: grid;
@@ -51,6 +58,11 @@
   }
 
   &__current-avatar {
+    background-image: url("../../assets/jpg/avatar.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -144,7 +156,7 @@
   &__send-button {
     width: 28px;
     height: 28px;
-    background-image: url("../../../assets/svg/blueArrowRight.svg");
+    background-image: url("../../assets/svg/blueArrowRight.svg");
     background-color: transparent;
     &:active {
       transform: scale(0.9);

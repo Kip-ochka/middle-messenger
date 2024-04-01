@@ -31,6 +31,9 @@ import addUserModal from "./modal-add-user/modal-add-user.hbs";
 import changeAvatarModal from "./modal-change-avatar/modal-change-avatar.hbs";
 import "./modal-change-avatar/modal-cahnge-avatar.scss";
 
+import Navigate from "./navigate/navigate.hbs";
+import "./navigate/navigate.scss";
+
 export {
   error,
   button,
@@ -48,4 +51,5 @@ export {
   deleteUserModal,
   addUserModal,
   changeAvatarModal,
+  Navigate,
 };

@@ -3,11 +3,9 @@
     <div class="chats__head">
       <a class="chats__link-to-profile" href="/">
         Профиль
-        <img
+        <div
           class="arrow-right"
-          src="../../../assets/svg/arrowRight.svg"
-          alt="Указатель вправо"
-        >
+        ></div>
       </a>
       {{> component/searchInput }}
     </div>
@@ -20,10 +18,7 @@
   </div>
   <div class="chats__current">
     <div class="chats__current-head">
-      <img
-        class="chats__current-avatar"
-        src="../../../assets/jpg/avatar.jpg"
-        alt="Аватар пользователя">
+      <div class="chats__current-avatar"></div>
       <span class="chats__current-name">Ваня</span>
       <button type="button" class="chats__options-button">
         <svg width="3" height="16" viewBox="0 0 3 16" fill="1E1E1E"
@@ -38,7 +33,7 @@
       {{> component/messageDate date='19 июня'}}
       {{> component/messageText date='11:12' message='Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'}}
       {{> component/messageText date='11:12' user-class='user-message' message='Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'}}
-      {{> component/messageMedia date='11:12' user-class='user-message' src='../../../assets/jpg/avatar.jpg' alt='avatar'}}
+      {{> component/messageMedia date='11:12' user-class='user-message' src='src/assets/jpg/avatar.jpg' alt='avatar'}}
 
     </ul>
     <form class="chats__form">

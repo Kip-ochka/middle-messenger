@@ -13,6 +13,11 @@
   }
 
   &__avatar {
+    background-image: url("../../assets/jpg/avatar.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
     width: 47px;
     height: 47px;
     border-radius: 50%;

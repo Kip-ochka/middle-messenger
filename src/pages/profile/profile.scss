@@ -32,8 +32,8 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    object-fit: cover;
-    background: $light-gray-1;
+    background: url("../../assets/jpg/avatar.jpg") no-repeat center;
+    background-size: contain;
   }
 
   &__img-overlay {

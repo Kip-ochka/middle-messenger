@@ -42,15 +42,35 @@
   &__image {
     width: 22px;
     height: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
     &_chat-options {
-      width: 22px;
-      height: 22px;
-      padding: 5px;
-      border-radius: 50%;
+      background-size: auto;
       border: 1px solid $primary;
+      border-radius: 50%;
     }
+
     &_cross {
       transform: rotateZ(45deg);
+      background-image: url("../../assets/svg/blueCrossAdd.svg");
+    }
+
+    &_photo {
+      background-image: url("../../assets/svg/blueMedia.svg");
+    }
+
+    &_file {
+      background-image: url("../../assets/svg/blueFile.svg");
+    }
+
+    &_location {
+      background-image: url("../../assets/svg/blueLocation.svg");
+    }
+
+    &_add {
+      background-image: url("../../assets/svg/blueCrossAdd.svg");
     }
   }
 
