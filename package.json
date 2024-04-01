@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "tsc && vite build && vite preview"
+    "start-preview": "tsc && vite build && vite preview",
+    "start": "npm run build && node server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
