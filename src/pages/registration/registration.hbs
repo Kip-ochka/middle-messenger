@@ -1,5 +1,5 @@
 <div class="register-page">
-  <div class="register-page__wrapper">
+  <form class="register-page__wrapper">
     <h1 class="register-page__title">Регистрация</h1>
     <div class="register-page__input-wrapper">
       {{> component/input label="Почта" type="email" placeholder="Почта" errorText="Неверная почта" name="email"}}
@@ -11,8 +11,8 @@
       {{> component/input label="Пароль (ещё раз)" type="password" placeholder="Пароль (ещё раз)" name="password"}}
     </div>
     <div class="register-page__button-wrapper">
-      {{> component/button text="Зарегистрироваться"}}
+      {{> component/button text="Зарегистрироваться" type='submit'}}
       <a class="register-page__link" href="../login/login.hbs">Войти</a>
     </div>
-  </div>
+  </form>
 </div>
