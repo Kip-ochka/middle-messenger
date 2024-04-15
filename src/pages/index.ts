@@ -1,6 +1,5 @@
 import NotFound from "./not-found.hbs";
 import ErrorPage from "./error-page.hbs";
-import LoginPage from "./login/login.hbs";
 import "./login/login.scss";
 import RegistrationPage from "./registration/registration.hbs";
 import "./registration/registration.scss";
@@ -16,7 +15,6 @@ import "./chat/chat.scss";
 export {
   NotFound,
   ErrorPage,
-  LoginPage,
   RegistrationPage,
   ProfilePage,
   ProfileChangePage,

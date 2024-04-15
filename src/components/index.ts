@@ -1,11 +1,8 @@
 import error from "./error/error.hbs";
 import "./error/error.scss";
-import button from "./button/button.hbs";
-import "./button/button.scss";
 import backButton from "./back-button/back-button.hbs";
 import "./back-button/back-button.scss";
-import input from "./input/input.hbs";
-import "./input/input.scss";
+
 import searchInput from "./input-search/input-search.hbs";
 import "./input-search/input-search.scss";
 import settingInput from "./input-setting/setting-input.hbs";
@@ -36,9 +33,7 @@ import "./navigate/navigate.scss";
 
 export {
   error,
-  button,
   backButton,
-  input,
   searchInput,
   settingInput,
   chatItem,
