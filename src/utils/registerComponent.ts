@@ -17,6 +17,6 @@ export function registerComponent<T extends object>(
 
     children[component.__id] = component;
 
-    return `<div data-id="id-${component.__id}"></div>`;
+    return `<div data-id="${component.__id}"></div>`;
   });
 }

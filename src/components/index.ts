@@ -1,50 +1,56 @@
-import error from "./error/error.hbs";
-import "./error/error.scss";
-import backButton from "./back-button/back-button.hbs";
-import "./back-button/back-button.scss";
+import { BackButton } from "./back-button";
+import { Button } from "./button";
+import { ChatItem } from "./chat-item";
+import { DropdownAddMedia } from "./dropdown-add-media";
+import { DropdownChatOptions } from "./dropdown-chat-options";
+import { Error } from "./error";
+import { Input } from "./input";
+import { InputSearch } from "./input-search";
+import { InputSetting } from "./input-setting";
+import { MessageDate } from "./message-date";
+import { MessageMedia } from "./message-media";
+import { MessageText } from "./message-text";
+import { ModalAddUser } from "./modal-add-user";
+import { ModalChangeAvatar } from "./modal-change-avatar";
+import { ModalDeleteUser } from "./modal-delete-user";
+import { ModalOverlay } from "./modal-overlay";
+import { Navigate } from "./navigate";
+import { registerComponent } from "../utils/registerComponent.ts";
 
-import searchInput from "./input-search/input-search.hbs";
-import "./input-search/input-search.scss";
-import settingInput from "./input-setting/setting-input.hbs";
-import "./input-setting/input-setting.scss";
-import chatItem from "./chat-item/chat-item.hbs";
-import "./chat-item/chat-item.scss";
-import messageDate from "./message-date/message-date.hbs";
-import "./message-date/media-date.scss";
-import messageText from "./message-text/message-text.hbs";
-import "./message-text/message-text.scss";
-import messageMedia from "./message-media/message-media.hbs";
-import "./message-media/message-media.scss";
-
-import "./dropdown/dropdown.scss";
-import addMediaDropdown from "./dropdow-add-media/dropdow-add-media.hbs";
-import chatOptionsDropdown from "./dropdown-chat-options/dropdown-chat-options.hbs";
-import modalOverlay from "./modal-overlay/modal-overlay.hbs";
-import "./modal-overlay/modal-overlay.scss";
-
-import "./modal/modal.scss";
-import deleteUserModal from "./modal-delete-user/modal-delete-user.hbs";
-import addUserModal from "./modal-add-user/modal-add-user.hbs";
-import changeAvatarModal from "./modal-change-avatar/modal-change-avatar.hbs";
-import "./modal-change-avatar/modal-cahnge-avatar.scss";
-
-import Navigate from "./navigate/navigate.hbs";
-import "./navigate/navigate.scss";
+registerComponent("BackButton", BackButton);
+registerComponent("Button", Button);
+registerComponent("ChatItem", ChatItem);
+registerComponent("DropdownAddMedia", DropdownAddMedia);
+registerComponent("DropdownChatOptions", DropdownChatOptions);
+registerComponent("Error", Error);
+registerComponent("Input", Input);
+registerComponent("InputSearch", InputSearch);
+registerComponent("InputSetting", InputSetting);
+registerComponent("MessageDate", MessageDate);
+registerComponent("MessageText", MessageText);
+registerComponent("MessageMedia", MessageMedia);
+registerComponent("ModalAddUser", ModalAddUser);
+registerComponent("ModalChangeAvatar", ModalChangeAvatar);
+registerComponent("ModalDeleteUser", ModalDeleteUser);
+registerComponent("ModalOverlay", ModalOverlay);
+registerComponent("Navigate", Navigate);
 
 export {
-  error,
-  backButton,
-  searchInput,
-  settingInput,
-  chatItem,
-  messageDate,
-  messageText,
-  messageMedia,
-  addMediaDropdown,
-  chatOptionsDropdown,
-  modalOverlay,
-  deleteUserModal,
-  addUserModal,
-  changeAvatarModal,
+  BackButton,
+  Button,
+  ChatItem,
+  DropdownChatOptions,
+  DropdownAddMedia,
+  Error,
+  Input,
+  InputSearch,
+  InputSetting,
+  MessageDate,
+  MessageMedia,
+  MessageText,
+  ModalDeleteUser,
+  ModalAddUser,
+  ModalChangeAvatar,
+  ModalOverlay,
   Navigate,
 };

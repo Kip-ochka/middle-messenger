@@ -1,4 +1,4 @@
 import { renderDom } from "./utils/renderDom.ts";
-import { Login } from "./pages/login";
+import { RegistrationPage } from "./pages";
 
-renderDom("root", Login());
+renderDom("root", RegistrationPage());

@@ -16,3 +16,10 @@
   line-height: 13px;
   color: $gray;
 }
+
+.setting-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

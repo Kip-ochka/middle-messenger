@@ -1,23 +1,19 @@
-import NotFound from "./not-found.hbs";
-import ErrorPage from "./error-page.hbs";
-import "./login/login.scss";
-import RegistrationPage from "./registration/registration.hbs";
-import "./registration/registration.scss";
-import ProfilePage from "./profile/profile.hbs";
-import "./profile/profile.scss";
-import ProfileChangePage from "./profile-change/profile-change.hbs";
-import "./profile-change/profile-change.scss";
-import ProfilePasswordPage from "./profile-password/profile-password.hbs";
-import "./profile-password/profile-password.scss";
-import ChatPage from "./chat/chat.hbs";
-import "./chat/chat.scss";
+import { ChatPage } from "./chat";
+import { ProfilePage } from "./profile";
+import { LoginPage } from "./login";
+import { ProfileChangePage } from "./profile-change";
+import { ProfilePasswordChangePage } from "./profile-password";
+import { RegistrationPage } from "./registration";
+import { ErrorPage } from "./ErrorPage.ts";
+import { NotFoundPage } from "./NotFoundPage.ts";
 
 export {
-  NotFound,
-  ErrorPage,
-  RegistrationPage,
-  ProfilePage,
-  ProfileChangePage,
-  ProfilePasswordPage,
   ChatPage,
+  ProfilePage,
+  LoginPage,
+  ProfileChangePage,
+  ProfilePasswordChangePage,
+  RegistrationPage,
+  ErrorPage,
+  NotFoundPage,
 };

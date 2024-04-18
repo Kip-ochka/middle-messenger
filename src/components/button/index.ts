@@ -15,14 +15,11 @@ export class ButtonCmp extends Block<ButtonProps> {
     super(props);
   }
 
-  componentDidUpdate(_: ButtonProps, __: ButtonProps): boolean {
-    return true;
-  }
-
   render() {
+    const { className = "", type = "button" } = this.props;
     // language=hbs
     return `
-      <button class="button {{className}}" type="{{type}}">
+      <button class="button ${className}" type="${type}">
         {{text}}
       </button>
     `;

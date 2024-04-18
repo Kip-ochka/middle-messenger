@@ -2,19 +2,13 @@ import { EventBus } from "./EventBus.ts";
 import { v4 as makeUUID } from "uuid";
 import { compile } from "handlebars";
 
-export interface BlockClass<P extends object> extends Function {
-  new (props: P): Block<P>;
-  componentName?: string;
-}
-
 export abstract class Block<Props extends object> {
   protected componentDidUpdate(_oldProps: Props, _newProps: Props) {
     return true;
   }
-
   protected componentDidMount() {}
   protected componentWillUnmount() {}
-
+  protected init() {}
   protected abstract render(): string;
 
   static EVENTS = {
@@ -90,7 +84,7 @@ export abstract class Block<Props extends object> {
   }
 
   private registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this.coreInit.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this.coreComponentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this.coreComponentDidUpdate.bind(this));
     eventBus.on(
@@ -100,7 +94,8 @@ export abstract class Block<Props extends object> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.coreRender.bind(this));
   }
 
-  public init() {
+  public coreInit() {
+    this.init();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -135,25 +130,47 @@ export abstract class Block<Props extends object> {
   }
 
   private coreRender() {
+    const templateString = this.render();
+    const template = compile(templateString);
     const propsAndStubs = { ...this.props };
 
     Object.entries(this.children).forEach(([key, child]) => {
       // @ts-ignore
       propsAndStubs[key] = `<div data-id="${child.__id}"></div>`;
     });
-
+    //@ts-ignore
+    if (this.props.TEST === "ErrorPage") {
+      console.log(
+        this.props,
+        this.children,
+        templateString,
+        propsAndStubs,
+        template({
+          ...propsAndStubs,
+          children: this.children,
+        })
+      );
+    }
     const fragment = this.createDocumentElement(
       "template"
     ) as HTMLTemplateElement;
 
-    fragment.innerHTML = compile(this.render())(propsAndStubs);
+    fragment.innerHTML = template({
+      ...propsAndStubs,
+      children: this.children,
+    });
+
     const newElement = fragment.content.firstElementChild as HTMLElement;
 
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(
-        `[data-id="${child.__id}"]`
-      ) as HTMLElement;
-
+      const stub = fragment.content.querySelector(`[data-id="${child.__id}"]`);
+      // @ts-ignore
+      if (this.props.TEST === "CHAT") {
+        console.log(child);
+      }
+      if (!stub) {
+        return;
+      }
       stub.replaceWith(child.element);
     });
 
@@ -173,10 +190,6 @@ export abstract class Block<Props extends object> {
   }
 
   private addEvents() {
-    const isEvents = this.props.hasOwnProperty("events");
-    if (!isEvents) {
-      return;
-    }
     if ("events" in this.props) {
       Object.entries(this.props.events as Record<string, () => void>).forEach(
         ([event, listener]) => {
@@ -187,10 +200,6 @@ export abstract class Block<Props extends object> {
   }
 
   private removeEvents() {
-    const isEvents = this.props.hasOwnProperty("events");
-    if (!isEvents || !this.node) {
-      return;
-    }
     if ("events" in this.props) {
       Object.entries(this.props.events as Record<string, () => void>).forEach(
         ([event, listener]) => {

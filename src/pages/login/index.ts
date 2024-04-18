@@ -1,9 +1,8 @@
 import { Block } from "../../utils/Block.ts";
 import "./login.scss";
-import { renderDom } from "../../utils/renderDom.ts";
 import { Input, InputProps } from "../../components/input";
 import { Button, ButtonProps } from "../../components/button";
-import { registerComponent } from "../../utils/registerComponent.ts";
+import { REGEXP_LOGIN, REGEXP_PASSWORD } from "../../utils/regexps.ts";
 
 export type LoginBlock = {
   loginValue: string;
@@ -11,54 +10,47 @@ export type LoginBlock = {
   login: Block<InputProps>;
   password: Block<InputProps>;
   button: Block<ButtonProps>;
+  TEST: string;
 };
 
+export type LoginProps = {};
+
 class LoginCmp extends Block<LoginBlock> {
-  constructor() {
+  constructor(props: LoginProps) {
     super({
+      ...props,
+      TEST: "LOGIN",
       loginValue: "",
       passwordValue: "",
       login: Input({
-        type: "text",
         id: "login-login",
-        errorText: "",
-        value: "",
-        name: "login-login",
-        className: "",
         placeholder: "Логин",
         label: "Логин",
+        regexp: REGEXP_LOGIN,
         events: {
           change: (event: InputEvent) => {
             if (!(event.target instanceof HTMLInputElement)) {
               return;
             }
-            this.setProps({ loginValue: event.target.value });
           },
         },
       }),
       password: Input({
-        type: "text",
         id: "login-password",
-        errorText: "",
-        value: "",
-        name: "login-password",
-        className: "",
         placeholder: "Пароль",
         label: "Пароль",
+        regexp: REGEXP_PASSWORD,
         events: {
           change: (event: InputEvent) => {
             if (!(event.target instanceof HTMLInputElement)) {
               return;
             }
-
-            this.setProps({ passwordValue: event.target.value });
           },
         },
       }),
       button: Button({
         type: "submit",
         text: "Войти",
-        className: "",
         events: {
           click: (event: Event) => {
             event.preventDefault();
@@ -92,11 +84,6 @@ class LoginCmp extends Block<LoginBlock> {
   }
 }
 
-export const Login = () => {
-  return new LoginCmp();
+export const LoginPage = () => {
+  return new LoginCmp({});
 };
-
-registerComponent("Input", Input);
-registerComponent("Button", Button);
-
-renderDom("root", Login());
