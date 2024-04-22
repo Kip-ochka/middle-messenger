@@ -1,19 +1,26 @@
 import { Block } from "../../utils/Block.ts";
 import "./chat.scss";
+
+import { InputSearch, InputSearchProps } from "../../components/input-search";
+
 import {
   DropdownAddMedia,
+  DropdownAddMediaProps,
+} from "../../components/dropdown-add-media";
+import {
   DropdownChatOptions,
-  InputSearch,
-} from "../../components";
-import { DropdownAddMediaProps } from "../../components/dropdown-add-media";
-import { DropdownChatOptionsProps } from "../../components/dropdown-chat-options";
-import { InputSearchProps } from "../../components/input-search";
-import { REGEXP_MESSAGE } from "../../utils/regexps.ts";
+  DropdownChatOptionsProps,
+} from "../../components/dropdown-chat-options";
+import {
+  InputElement,
+  InputElementProps,
+} from "../../components/Input-element";
 
 export type ChatPageBlock = {
   dropdownAddMedia: Block<DropdownAddMediaProps>;
   dropdownChatOptions: Block<DropdownChatOptionsProps>;
   inputSearch: Block<InputSearchProps>;
+  chatMessageInput: Block<InputElementProps>;
 };
 export type ChatPageProps = {};
 
@@ -24,6 +31,11 @@ class ChatPageCmp extends Block<ChatPageBlock> {
       dropdownAddMedia: DropdownAddMedia(),
       dropdownChatOptions: DropdownChatOptions(),
       inputSearch: InputSearch({}),
+      chatMessageInput: InputElement({
+        id: "message-input",
+        className: "chats__input-message",
+        placeholder: "Сообщение",
+      }),
     });
   }
 
@@ -68,7 +80,6 @@ class ChatPageCmp extends Block<ChatPageBlock> {
             {{{ MessageText date='11:12' message='Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'}}}
             {{{ MessageText date='11:12' user-class='user-message' message='Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'}}}
             {{{ MessageMedia date='11:12' user-class='user-message' src='src/assets/jpg/avatar.jpg' alt='avatar' }}}
-
           </ul>
           <form class="chats__form">
 
@@ -91,16 +102,8 @@ class ChatPageCmp extends Block<ChatPageBlock> {
                       d="M9.70092 16.0144C7.95751 17.7578 7.95123 20.5782 9.68689 22.3138C11.4226 24.0495 14.2429 24.0432 15.9863 22.2998L15.0435 21.357C13.8231 22.5774 11.8489 22.5818 10.6339 21.3668C9.41894 20.1518 9.42334 18.1776 10.6437 16.9572L9.70092 16.0144Z" />
               </svg>
             </button>
-
-            <input
-              id="message-input"
-              class="chats__input-message"
-              name="message"
-              type="text"
-              placeholder="Сообщение"
-              regexp="${REGEXP_MESSAGE}"
-            >
-            <button id="send-message" class="chats__send-button"></button>
+            {{{ chatMessageInput }}}
+            <button id="send-message" type="submit" class="chats__send-button"></button>
           </form>
         </div>
       </div>

@@ -1,53 +1,33 @@
 import { Block } from "../../utils/Block.ts";
 import "./input.scss";
+import { InputElement, InputElementProps } from "../Input-element";
 
-export type InputProps = {
-  value?: string;
-  placeholder?: string;
-  className?: string;
-  errorText?: string;
-  regexp?: string;
-  type?: string;
-
-  id: string;
+export interface InputProps extends InputElementProps {
   label: string;
+  errorText?: string;
+}
 
-  events?: {
-    input?: (event: InputEvent) => void;
-    blur?: (event: InputEvent) => void;
-    focus?: (event: InputEvent) => void;
-    change?: (event: InputEvent) => void;
-  };
-};
+export type InputBlock = {
+  inputElement: Block<InputElementProps>;
+} & InputProps;
 
-class InputCmp extends Block<InputProps> {
+class InputCmp extends Block<InputBlock> {
   constructor(props: InputProps) {
-    super(props);
+    super({
+      ...props,
+      inputElement: InputElement({
+        ...props,
+        className: "input__native-element",
+      }),
+    });
   }
 
   protected render(): string {
-    const {
-      placeholder = "",
-      className = "",
-      type = "text",
-      value = "",
-      regexp = "",
-    } = this.props;
-
     // language=hbs
     return `
-      <label class="input ${className}" for="{{id}}">
+      <label class="input" for="{{id}}">
         <span class="input__label">{{label}}</span>
-        <input
-          class="input__native-element"
-          placeholder=${placeholder}
-          name={{id}}
-          id={{id}}
-          autocomplete="false"
-          value="${value}"
-          type="${type}"
-          regexp="${regexp}"
-        >
+        {{{ inputElement }}}
         <span class="input__error">{{errorText}}</span>
       </label>
     `;

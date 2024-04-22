@@ -1,27 +1,22 @@
 import { Block } from "../../utils/Block.ts";
 import "./input-setting.scss";
+import { InputElement, InputElementProps } from "../Input-element";
 
-export type InputSettingProps = {
+export interface InputSettingProps extends InputElementProps {
   id: string;
   label: string;
-  value: string;
-  type: string;
-  onChange: (event: Event) => void;
-};
+}
 
-export type InputSettingBlock = {} & InputSettingProps;
+export type InputSettingBlock = {
+  inputElement: Block<InputElementProps>;
+} & InputSettingProps;
 
 class InputSettingCmp extends Block<InputSettingBlock> {
   constructor(props: InputSettingProps) {
-    super(props);
-  }
-
-  get input() {
-    return document.getElementById(this.props.id) as HTMLInputElement;
-  }
-
-  componentDidMount() {
-    this.input.addEventListener("change", this.props.onChange);
+    super({
+      ...props,
+      inputElement: InputElement({ ...props, className: "input-setting" }),
+    });
   }
 
   protected render(): string {
@@ -29,7 +24,7 @@ class InputSettingCmp extends Block<InputSettingBlock> {
     return `
       <div class="setting-wrapper">
         <label for="{{id}}" class="label-setting">{{label}}</label>
-        <input class="input-setting" id="{{id}}" name="{{id}}" value="{{value}}" type="{{type}}" />
+        {{{ inputElement }}}
       </div>
 
     `;

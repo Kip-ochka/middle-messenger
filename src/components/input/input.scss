@@ -19,6 +19,9 @@
 
     font-size: 13px;
     line-height: 13px;
+    &_error {
+      color: $error;
+    }
   }
 
   &__error {

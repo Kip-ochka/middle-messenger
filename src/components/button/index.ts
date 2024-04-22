@@ -5,6 +5,7 @@ export type ButtonProps = {
   text: string;
   className?: string;
   type?: string;
+  form?: string;
   events?: {
     click: (event: MouseEvent) => void;
   };
@@ -19,7 +20,7 @@ export class ButtonCmp extends Block<ButtonProps> {
     const { className = "", type = "button" } = this.props;
     // language=hbs
     return `
-      <button class="button ${className}" type="${type}">
+      <button class="button ${className}" type="${type}" form="{{form}}">
         {{text}}
       </button>
     `;

@@ -16,6 +16,7 @@ import { ModalDeleteUser } from "./modal-delete-user";
 import { ModalOverlay } from "./modal-overlay";
 import { Navigate } from "./navigate";
 import { registerComponent } from "../utils/registerComponent.ts";
+import { InputElement } from "./Input-element";
 
 registerComponent("BackButton", BackButton);
 registerComponent("Button", Button);
@@ -33,6 +34,7 @@ registerComponent("ModalAddUser", ModalAddUser);
 registerComponent("ModalChangeAvatar", ModalChangeAvatar);
 registerComponent("ModalDeleteUser", ModalDeleteUser);
 registerComponent("ModalOverlay", ModalOverlay);
+registerComponent("InputElement", InputElement);
 registerComponent("Navigate", Navigate);
 
 export {

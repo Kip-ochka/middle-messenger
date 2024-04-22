@@ -1,6 +1,6 @@
 import { EventBus } from "./EventBus.ts";
 import { v4 as makeUUID } from "uuid";
-import { compile } from "handlebars";
+import Handlebars from "handlebars";
 
 export abstract class Block<Props extends object> {
   protected componentDidUpdate(_oldProps: Props, _newProps: Props) {
@@ -15,7 +15,6 @@ export abstract class Block<Props extends object> {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
-    FLOW_CWU: "flow:component-will-unmount",
     FLOW_RENDER: "flow:render",
   } as const;
 
@@ -87,42 +86,27 @@ export abstract class Block<Props extends object> {
     eventBus.on(Block.EVENTS.INIT, this.coreInit.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this.coreComponentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this.coreComponentDidUpdate.bind(this));
-    eventBus.on(
-      Block.EVENTS.FLOW_CWU,
-      this.coreComponentWillUnmount.bind(this)
-    );
     eventBus.on(Block.EVENTS.FLOW_RENDER, this.coreRender.bind(this));
   }
 
-  public coreInit() {
+  private coreInit() {
     this.init();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
   private coreComponentDidMount() {
-    this.checkInDom();
     this.componentDidMount();
-  }
-
-  private checkInDom() {
-    const elementInDOM = document.body.contains(this.node);
-
-    if (elementInDOM) {
-      setTimeout(() => this.checkInDom(), 1000);
-      return;
-    }
-
-    this.eventBus.emit(Block.EVENTS.FLOW_CWU, this.props);
-  }
-
-  private coreComponentWillUnmount() {
-    this.componentWillUnmount();
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
   }
 
   private coreComponentDidUpdate(oldProps: Props, newProps: Props) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
-      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+    const response = this.componentDidUpdate(oldProps, newProps);
+    if (!response) {
+      return;
     }
+    this.coreRender();
   }
 
   public dispatchComponentDidMount() {
@@ -131,26 +115,14 @@ export abstract class Block<Props extends object> {
 
   private coreRender() {
     const templateString = this.render();
-    const template = compile(templateString);
+    const template = Handlebars.compile(templateString);
     const propsAndStubs = { ...this.props };
 
     Object.entries(this.children).forEach(([key, child]) => {
       // @ts-ignore
       propsAndStubs[key] = `<div data-id="${child.__id}"></div>`;
     });
-    //@ts-ignore
-    if (this.props.TEST === "ErrorPage") {
-      console.log(
-        this.props,
-        this.children,
-        templateString,
-        propsAndStubs,
-        template({
-          ...propsAndStubs,
-          children: this.children,
-        })
-      );
-    }
+
     const fragment = this.createDocumentElement(
       "template"
     ) as HTMLTemplateElement;
@@ -164,10 +136,7 @@ export abstract class Block<Props extends object> {
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child.__id}"]`);
-      // @ts-ignore
-      if (this.props.TEST === "CHAT") {
-        console.log(child);
-      }
+
       if (!stub) {
         return;
       }

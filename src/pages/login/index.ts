@@ -2,35 +2,44 @@ import { Block } from "../../utils/Block.ts";
 import "./login.scss";
 import { Input, InputProps } from "../../components/input";
 import { Button, ButtonProps } from "../../components/button";
-import { REGEXP_LOGIN, REGEXP_PASSWORD } from "../../utils/regexps.ts";
+
+import {
+  REGEXPS,
+  validateInput,
+  validateInputs,
+} from "../../utils/validators.ts";
 
 export type LoginBlock = {
-  loginValue: string;
-  passwordValue: string;
   login: Block<InputProps>;
   password: Block<InputProps>;
   button: Block<ButtonProps>;
-  TEST: string;
 };
 
 export type LoginProps = {};
 
 class LoginCmp extends Block<LoginBlock> {
   constructor(props: LoginProps) {
+    const className = "input__native-element_error";
+
     super({
       ...props,
-      TEST: "LOGIN",
-      loginValue: "",
-      passwordValue: "",
       login: Input({
         id: "login-login",
         placeholder: "Логин",
         label: "Логин",
-        regexp: REGEXP_LOGIN,
         events: {
-          change: (event: InputEvent) => {
-            if (!(event.target instanceof HTMLInputElement)) {
-              return;
+          blur: () => {
+            const { valid } = validateInput(
+              "login-login",
+              REGEXPS.LOGIN,
+              className
+            );
+            if (valid) {
+              this.children.login.setProps({ errorText: "" });
+            } else {
+              this.children.login.setProps({
+                errorText: "Введите корректный логин",
+              });
             }
           },
         },
@@ -39,11 +48,20 @@ class LoginCmp extends Block<LoginBlock> {
         id: "login-password",
         placeholder: "Пароль",
         label: "Пароль",
-        regexp: REGEXP_PASSWORD,
+        type: "password",
         events: {
-          change: (event: InputEvent) => {
-            if (!(event.target instanceof HTMLInputElement)) {
-              return;
+          blur: () => {
+            const { valid } = validateInput(
+              "login-password",
+              REGEXPS.PASSWORD,
+              "input__native-element_error"
+            );
+            if (valid) {
+              this.children.password.setProps({ errorText: "" });
+            } else {
+              this.children.password.setProps({
+                errorText: "Введите корректный логин",
+              });
             }
           },
         },
@@ -51,13 +69,19 @@ class LoginCmp extends Block<LoginBlock> {
       button: Button({
         type: "submit",
         text: "Войти",
+        form: "login-form",
         events: {
           click: (event: Event) => {
             event.preventDefault();
-            console.log({
-              password: this.props.passwordValue,
-              login: this.props.loginValue,
-            });
+            const result = validateInputs(
+              { className, elementId: "login-login", regexp: REGEXPS.LOGIN },
+              {
+                className,
+                elementId: "login-password",
+                regexp: REGEXPS.PASSWORD,
+              }
+            );
+            console.log(result);
           },
         },
       }),
@@ -68,7 +92,7 @@ class LoginCmp extends Block<LoginBlock> {
     // language=hbs
     return `
       <div class="login-page">
-        <form class="login-page__wrapper">
+        <form class="login-page__wrapper" id="login-form">
           <h1 class="login-page__title">Вход</h1>
           <div class="login-page__input-wrapper">
             {{{ login }}}

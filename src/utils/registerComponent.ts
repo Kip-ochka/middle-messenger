@@ -1,14 +1,14 @@
-import { HelperOptions, registerHelper, helpers } from "handlebars";
+import Handlebars, { HelperOptions } from "handlebars";
 import { Block } from "./Block.ts";
 
 export function registerComponent<T extends object>(
   componentName: string,
   componentFn: (props: T) => Block<T>
 ) {
-  if (componentName in helpers) {
+  if (componentName in Handlebars.helpers) {
     throw `The ${componentName} component is already registered!`;
   }
-  registerHelper(componentName, ({ hash, data }: HelperOptions) => {
+  Handlebars.registerHelper(componentName, ({ hash, data }: HelperOptions) => {
     if (!data.root.children) {
       data.root.children = {};
     }

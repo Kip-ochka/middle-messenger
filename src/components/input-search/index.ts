@@ -9,7 +9,19 @@ export type InputSearchProps = {
 
 class InputSearchCmp extends Block<InputSearchProps> {
   constructor(props: InputSearchProps) {
-    super(props);
+    super({
+      ...props,
+      events: {
+        change: (event: InputEvent) => {
+          if (event.target instanceof HTMLInputElement) {
+            this.setProps({ value: event.target.value });
+          }
+          if (props.events?.change) {
+            props.events?.change(event);
+          }
+        },
+      },
+    });
   }
 
   protected render(): string {

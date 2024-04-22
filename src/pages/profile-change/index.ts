@@ -1,12 +1,5 @@
 import { Block } from "../../utils/Block.ts";
 import "./profile-change.scss";
-import {
-  REGEXP_EMAIL,
-  REGEXP_LOGIN,
-  REGEXP_NAME,
-  REGEXP_NICKNAME,
-  REGEXP_PHONE,
-} from "../../utils/regexps.ts";
 
 class ProfileChangeCmp extends Block<{}> {
   constructor() {
@@ -24,22 +17,22 @@ class ProfileChangeCmp extends Block<{}> {
           </div>
           <ul class="profile-change__fields">
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Почта' value='email@email.com' id='email' regexp="${REGEXP_EMAIL}"}}}
+              {{{ InputSetting type='text' label='Почта' value='email@email.com' id='email' }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Логин' value='Vanya777xXx' id='login' regexp="${REGEXP_LOGIN}"}}}
+              {{{ InputSetting type='text' label='Логин' value='Vanya777xXx' id='login'}}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Имя' value='Ваня' id='first_name' regexp="${REGEXP_NAME}"}}}
+              {{{ InputSetting type='text' label='Имя' value='Ваня' id='first_name' }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Фамилия' value='Ванин' id='second_name' regexp="${REGEXP_NAME}"}}}
+              {{{ InputSetting type='text' label='Фамилия' value='Ванин' id='second_name' }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Имя в чате' value='SuperVanyaOver9000' id='display_name' regexp="${REGEXP_NICKNAME}"}}}
+              {{{ InputSetting type='text' label='Имя в чате' value='SuperVanyaOver9000' id='display_name' }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Телефон' value='+7(900)000-00-00' id='phone' regexp="${REGEXP_PHONE}"}}}
+              {{{ InputSetting type='text' label='Телефон' value='+7(900)000-00-00' id='phone' }}}
             </li>
           </ul>
           <div class="profile-change__button-wrapper">
