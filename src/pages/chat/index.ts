@@ -25,9 +25,8 @@ export type ChatPageBlock = {
 export type ChatPageProps = {};
 
 class ChatPageCmp extends Block<ChatPageBlock> {
-  constructor(props: ChatPageProps) {
+  constructor() {
     super({
-      ...props,
       dropdownAddMedia: DropdownAddMedia(),
       dropdownChatOptions: DropdownChatOptions(),
       inputSearch: InputSearch({}),
@@ -111,6 +110,6 @@ class ChatPageCmp extends Block<ChatPageBlock> {
   }
 }
 
-export const ChatPage = (props: ChatPageProps) => {
-  return new ChatPageCmp(props);
+export const ChatPage = () => {
+  return new ChatPageCmp();
 };

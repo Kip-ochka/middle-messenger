@@ -27,7 +27,7 @@ class ModalDeleteUserCmp extends Block<ModalDeleteUserBlock> {
         errorText: "",
         placeholder: "Логин",
         events: {
-          change: (event: InputEvent) => {
+          change: (event: Event) => {
             if (!(event.target instanceof HTMLInputElement)) return;
             this.children.input.setProps({ value: event.target.value });
           },

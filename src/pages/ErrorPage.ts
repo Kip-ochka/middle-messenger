@@ -1,13 +1,16 @@
 import { Block } from "../utils/Block.ts";
+import { Error } from "../components";
 
 class ErrorCmp extends Block<{}> {
   constructor() {
-    super({ TEST: "ErrorPage" });
+    super({
+      error: Error({ errorCode: "500", message: "Мы уже фиксим" }),
+    });
   }
 
   protected render(): string {
     //language=hbs
-    return `<div style="height: 100%">{{{ Error errorCode='500' message='Мы уже фиксим' }}}</div>`;
+    return `<div style="height: 100%">{{{ error }}}</div>`;
   }
 }
 
