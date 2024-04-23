@@ -1,9 +1,121 @@
 import { Block } from "../../utils/Block.ts";
 import "./profile-change.scss";
+import {
+  InputSetting,
+  InputSettingProps,
+} from "../../components/input-setting";
+import {
+  REGEXPS,
+  validateInput,
+  validateInputs,
+} from "../../utils/validators.ts";
+import { Button, ButtonProps } from "../../components/button";
 
-class ProfileChangeCmp extends Block<{}> {
+export type ProfileChangeBlock = {
+  email: Block<InputSettingProps>;
+  login: Block<InputSettingProps>;
+  firstName: Block<InputSettingProps>;
+  secondName: Block<InputSettingProps>;
+  displayName: Block<InputSettingProps>;
+  phoneNumber: Block<InputSettingProps>;
+  button: Block<ButtonProps>;
+};
+
+class ProfileChangeCmp extends Block<ProfileChangeBlock> {
   constructor() {
-    super();
+    const className = "test";
+    super({
+      email: InputSetting({
+        id: "email",
+        label: "Почта",
+        placeholder: "Почта",
+        events: {
+          blur: () => validateInput("email", REGEXPS.EMAIL, className),
+        },
+      }),
+      login: InputSetting({
+        id: "login",
+        label: "Логин",
+        placeholder: "Логин",
+        events: {
+          blur: () => validateInput("login", REGEXPS.LOGIN, className),
+        },
+      }),
+      firstName: InputSetting({
+        id: "firstName",
+        label: "Имя",
+        placeholder: "Имя",
+        events: {
+          blur: () => validateInput("firstName", REGEXPS.NAME, className),
+        },
+      }),
+      secondName: InputSetting({
+        id: "secondName",
+        label: "Фамилия",
+        placeholder: "Фамилия",
+        events: {
+          blur: () => validateInput("secondName", REGEXPS.NAME, className),
+        },
+      }),
+      displayName: InputSetting({
+        id: "displayName",
+        label: "Имя в чате",
+        placeholder: "Имя в чате",
+        events: {
+          blur: () => validateInput("displayName", REGEXPS.NICKNAME, className),
+        },
+      }),
+      phoneNumber: InputSetting({
+        id: "phoneNumber",
+        label: "Телефон",
+        placeholder: "Телефон",
+        events: {
+          blur: () => validateInput("phoneNumber", REGEXPS.PHONE, className),
+        },
+      }),
+      button: Button({
+        text: "Сохранить",
+        type: "submit",
+        events: {
+          click: (event) => {
+            event.preventDefault();
+            const result = validateInputs(
+              {
+                elementId: "email",
+                regexp: REGEXPS.EMAIL,
+                className,
+              },
+              {
+                elementId: "login",
+                regexp: REGEXPS.LOGIN,
+                className,
+              },
+              {
+                elementId: "firstName",
+                regexp: REGEXPS.NAME,
+                className,
+              },
+              {
+                elementId: "secondName",
+                regexp: REGEXPS.NAME,
+                className,
+              },
+              {
+                elementId: "displayName",
+                regexp: REGEXPS.NICKNAME,
+                className,
+              },
+              {
+                elementId: "phoneNumber",
+                regexp: REGEXPS.PHONE,
+                className,
+              }
+            );
+            console.log(result);
+          },
+        },
+      }),
+    });
   }
 
   protected render(): string {
@@ -17,26 +129,26 @@ class ProfileChangeCmp extends Block<{}> {
           </div>
           <ul class="profile-change__fields">
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Почта' value='email@email.com' id='email' }}}
+              {{{ email }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Логин' value='Vanya777xXx' id='login'}}}
+              {{{ login }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Имя' value='Ваня' id='first_name' }}}
+              {{{ firstName }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Фамилия' value='Ванин' id='second_name' }}}
+              {{{ secondName }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Имя в чате' value='SuperVanyaOver9000' id='display_name' }}}
+              {{{ displayName }}}
             </li>
             <li class="profile-change__field">
-              {{{ InputSetting type='text' label='Телефон' value='+7(900)000-00-00' id='phone' }}}
+              {{{ phoneNumber }}}
             </li>
           </ul>
           <div class="profile-change__button-wrapper">
-            {{{ Button type="submit" text="Сохранить"}}}
+            {{{ button }}}
           </div>
         </form>
       </div>

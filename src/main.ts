@@ -1,4 +1,4 @@
 import { renderDom } from "./utils/renderDom.ts";
-import { ProfilePasswordChangePage } from "./pages";
+import { ProfileChangePage } from "./pages";
 
-renderDom("root", ProfilePasswordChangePage());
+renderDom("root", ProfileChangePage());
